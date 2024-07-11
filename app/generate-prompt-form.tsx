@@ -1,8 +1,8 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
 import { generatePrompt } from "~/app/actions";
 import { useCallback, useState } from "react";
+import SubmitButton from "./submit-button";
 
 export interface GeneratePromptFormProps {
   initialPrompt?: string;
@@ -11,7 +11,6 @@ export interface GeneratePromptFormProps {
 export default function GeneratePromptForm({
   initialPrompt = "",
 }: GeneratePromptFormProps) {
-  const { pending } = useFormStatus();
   const [generatedPrompt, setGeneratedPrompt] = useState<string | null>(null);
 
   const onSubmit = useCallback(async () => {
@@ -30,9 +29,7 @@ export default function GeneratePromptForm({
       <p>{generatedPrompt ?? initialPrompt}</p>
 
       <form action={onSubmit}>
-        <button disabled={pending} type="submit">
-          {pending ? "Generating Prompt..." : "Generate Prompt"}
-        </button>
+        <SubmitButton />
       </form>
     </section>
   );
